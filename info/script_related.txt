@@ -1,4 +1,6 @@
-Color can be applied to text by wrapping it in certain symbols. This works with letters, numbers and underscores (the standard "word" characters in many languages). All currently-known text colors are shown below.
+Color can be applied to text by wrapping it in certain symbols.
+This works with letters, numbers and underscores (the standard "word" characters in many languages).
+All currently-known text colors are shown below.
 
 `0zero`
 `1one`
@@ -9,3 +11,5 @@ Color can be applied to text by wrapping it in certain symbols. This works with 
 -minus-
 +plus+
 !bang!
+
+there are more, referenced here: http://hackmud.wikia.com/wiki/Colors
