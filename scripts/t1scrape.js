@@ -1,12 +1,12 @@
 function(context, args) // target:#s.t1npc.corp
 {
 	// this formats the output to one line
-	function format(ret) {
-		return ret.split("\n").join(" ")
+	function format(response) {
+		return response.split("\n").join(" ")
 	}
 	// this whole process returns an array of regex matches, then put it in an array
-	function pubpages(regex, ret) {
-	let matches;
+	function pubpages(regex, response) {
+	let matches = regex.exec(response);
 	let resultsofmatch = []
 	while (matches) {
 		if (matches.index === regex.lastIndex) {
@@ -17,16 +17,15 @@ function(context, args) // target:#s.t1npc.corp
 			resultsofmatch.push(match)
 			}
 		})
+		matches = regex.exec(response);
 	}
 	return resultsofmatch;
 	}
 	
 	function logincontroller() {
-		let ret = format(args.target.call());
+		let response = format(args.target.call());
 		let regex = /\s(\w+)\s\|/g;
-		return pubpages(regex, ret)
+		return pubpages(regex, response)
 	}
-	let target = args.target; // stores the autocomplete (target)
-	
 	return logincontroller()
 }
