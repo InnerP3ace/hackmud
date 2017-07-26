@@ -14,7 +14,7 @@ function(context, args)  // target:#s.t1npc.corp
 			if (matches.index === regex.lastIndex) {
 				regex.lastIndex++;
 			}
-			resultOfMatch.push(matches[1])
+			resultOfMatch.push(matches[1] || matches[2])
 			matches = regex.exec(response);
 		}
 		return [...new Set(resultOfMatch)];
@@ -32,7 +32,7 @@ function(context, args)  // target:#s.t1npc.corp
 		page[navArg] = pubPages[0];
 		// get the wall of text on the first page
 		response = args.target.call(page);
-		let usernames = search(/\-{2}\s(\w+)\s/g, response);
+		let usernames = search(/([A-Za-z0-9_-]+)\sof\sproject|-{2}\s(\w+)\s/g, response);
 		
 		return usernames;
 	}
