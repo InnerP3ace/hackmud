@@ -21,7 +21,8 @@ function(context, args) // target:#s.t1npc.corp
 	}
 	return resultsofmatch;
 	}
-	
+	// just allows me to use specific parameters i might want to use for
+	// development purposes
 	function logincontroller() {
 		let response = format(args.target.call());
 		let regex = /\s(\w+)\s\|/g;
