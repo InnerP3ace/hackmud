@@ -15,11 +15,7 @@ function(context, args)  // target:#s.t1npc.corp
 			if (matches.index === regex.lastIndex) {
 				regex.lastIndex++;
 			}
-			matches.forEach((match, groupIndex) => {
-				if (groupIndex) {
-					resultOfMatch.push(match)
-				}
-			})
+			resultOfMatch.push(matches[1])
 			matches = regex.exec(response);
 		}
 		return resultOfMatch;
