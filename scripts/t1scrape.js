@@ -42,7 +42,7 @@ function(context, args)  // target:#s.t1npc.corp
 		page[navArg] = pubPages[1];
 		response = args.target.call(page);
 		let password = search(/\sstrategy\s(\w+)\s/g, response);
-		
+		// displays all the info
 		return [["`5usernames`", usernames], ["`5projects`", projects], ["`5password`", password]];
 	}
 	return logicController();
