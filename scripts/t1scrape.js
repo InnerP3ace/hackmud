@@ -1,6 +1,6 @@
 function(context, args)  // target:#s.t1npc.corp
 {
-	if (!args) {
+	if (!args || !args.target) {
 		return {ok:false, msg:"usage: youruser.t1scrape {target:#s.t1npc.corp}"}
 	}
 	
@@ -36,10 +36,14 @@ function(context, args)  // target:#s.t1npc.corp
 		page[navArg] = pubPages[0];
 		// get the wall of text on the first page
 		response = args.target.call(page);
+		// collects the info
 		let usernames = search(/([A-Za-z0-9_-]+)\sof\sproject|-{2}\s(\w+)\s/g, response);
-		let projects = search(/continues\son\s([A-Za-z0-9_()]+)|on\s([A-Za-z0-9_()]+)\sprogress/g, response)
+		let projects = search(/continues\son\s([A-Za-z0-9_()]+)|on\s([A-Za-z0-9_()]+)\sprogress/g, response);
+		page[navArg] = pubPages[1];
+		response = args.target.call(page);
+		let password = search(/\sstrategy\s(\w+)\s/g, response);
 		
-		return projects;
+		return [["`5usernames`", usernames], ["`5projects`", projects], ["`5password`", password]];
 	}
 	return logicController();
 }
