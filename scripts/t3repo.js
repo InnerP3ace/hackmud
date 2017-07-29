@@ -11,16 +11,14 @@ function(context, args) { // target:#s.t3.corp, username:"username", pin:"4nums"
 			if (matches.index === regex.lastIndex) {
 				regex.lastIndex++;
 			}
-			resultOfMatch.push(matches[1] || matches[2] || matches[3])
+			resultOfMatch.push(matches[1] || matches[2])
 			matches = regex.exec(response);
 		}
 		return [...new Set(resultOfMatch)];
 	}
 	function logicController() {
-		let regex = /\+\s+(\w+)\s+\+/g;
 		let response = formatString(args.target.call({username:args.username, pin:args.pin}));
-		response = args.target.call({username:args.username, pin:args.pin})
-		let pages = regex.exec(response);
+		let pages = search(/\+\s+(\w+\s?\w+?)\s+\+|\|\s+(\w+\s?\w+?)\s+\|/g, response);
 		return pages;
 	}
 	return logicController();
