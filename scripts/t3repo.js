@@ -18,7 +18,7 @@ function(context, args) { // target:#s.t3.corp, username:"username", pin:"4nums"
 	}
 	function logicController() {
 		let response = formatString(args.target.call({username:args.username, pin:args.pin}));
-		let pages = search(/\+\s+(\w+\s?\w+?)\s+\+|\|\s+(\w+\s?\w+?)\s+\|/g, response);
+		let pages = search(/\+\s+`.(\w+\s?\w+?)`\s+\+|\|\s+`.(\w+\s?\w+?)`\s+\|/g, response);
 		return pages;
 	}
 	return logicController();
