@@ -11,15 +11,23 @@ function(context, args) { // target:#s.t3.corp, username:"username", pin:"4nums"
 			if (matches.index === regex.lastIndex) {
 				regex.lastIndex++;
 			}
-			resultOfMatch.push(matches[1] || matches[2])
+			resultOfMatch.push(matches[1] || matches[2] || matches[3])
 			matches = regex.exec(response);
 		}
 		return [...new Set(resultOfMatch)];
 	}
 	function logicController() {
+		let page = {};
+		//calls the script
 		let response = formatString(args.target.call({username:args.username, pin:args.pin}));
-		let pages = search(/\+\s+`.(\w+\s?\w+?)`\s+\+|\|\s+`.(\w+\s?\w+?)`\s+\|/g, response);
-		return pages;
+		//get the pages
+		let pages = search(/\+\s+`V(\w+\s?\w+?)`\s+\+|\|\s+`V(\w+\s?\w+?)`\s+\|/g, response);
+		//get the navigation arg
+		let pageNav = search(/\s{2}`N(\w+)`\s{2}/g, response);
+		//this is where it should add them together, and call the calendar
+		page[pageNav] = pages[2];
+		response = args.target.call({username:args.username, pin:args.pin, page});
+		return #D(response);
 	}
 	return logicController();
 }
