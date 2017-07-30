@@ -21,8 +21,13 @@ function(context, args) { // target:#s.t3.corp, username:"username", pin:"4nums"
 		array = array.split("~")
 		return array;
 	}
+	function scanCalendar(calendar) {
+		for (var i = -48; i > 48; i+12) {
+			
+		}
+	}
 	function logicController() {
-		//stores all the args for the script
+		//stores all the args
 		let currentArgs = {username:args.username, pin:args.pin};
 		//calls the script
 		let response = formatString(args.target.call(currentArgs));
@@ -34,7 +39,8 @@ function(context, args) { // target:#s.t3.corp, username:"username", pin:"4nums"
 		pages = arrayToLowerCase(pages);
 		currentArgs[pageNav] = pages[2]
 		response = args.target.call(currentArgs);
-		return #D(response);
+		let indexes = search(/-\s(\w+)\s|\|\s(\w+)\s|\|\s(\w+)\s-/g, response)
+		return #D(indexes);
 	}
 	return logicController();
 }
