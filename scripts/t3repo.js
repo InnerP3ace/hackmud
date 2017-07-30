@@ -16,7 +16,13 @@ function(context, args) { // target:#s.t3.corp, username:"username", pin:"4nums"
 		}
 		return [...new Set(resultOfMatch)];
 	}
+	function arrayToLowerCase(array) {
+		array = array.join("~").toLowerCase()
+		array = array.split("~")
+		return array;
+	}
 	function logicController() {
+		//stores all the args for the script
 		let currentArgs = {username:args.username, pin:args.pin};
 		//calls the script
 		let response = formatString(args.target.call(currentArgs));
@@ -25,6 +31,8 @@ function(context, args) { // target:#s.t3.corp, username:"username", pin:"4nums"
 		//get the navigation arg
 		let pageNav = search(/\s{2}`N(\w+)`\s{2}/g, response);
 		//this is where it should add them together, and call the calendar
+		pages = arrayToLowerCase(pages);
+		currentArgs[pageNav] = pages[2]
 		response = args.target.call(currentArgs);
 		return #D(response);
 	}
