@@ -13,3 +13,5 @@ All currently-known text colors are shown below.
 !bang!
 
 there are more, referenced here: http://hackmud.wikia.com/wiki/Colors
+
+regex can take into account the color of the text you are going for. if the text you want is colored, you have to wrap the capture group with `.(\w+)`
