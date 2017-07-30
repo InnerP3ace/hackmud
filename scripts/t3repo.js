@@ -17,16 +17,15 @@ function(context, args) { // target:#s.t3.corp, username:"username", pin:"4nums"
 		return [...new Set(resultOfMatch)];
 	}
 	function logicController() {
-		let page = {};
+		let currentArgs = {username:args.username, pin:args.pin};
 		//calls the script
-		let response = formatString(args.target.call({username:args.username, pin:args.pin}));
+		let response = formatString(args.target.call(currentArgs));
 		//get the pages
 		let pages = search(/\+\s+`V(\w+\s?\w+?)`\s+\+|\|\s+`V(\w+\s?\w+?)`\s+\|/g, response);
 		//get the navigation arg
 		let pageNav = search(/\s{2}`N(\w+)`\s{2}/g, response);
 		//this is where it should add them together, and call the calendar
-		page[pageNav] = pages[2];
-		response = args.target.call({username:args.username, pin:args.pin, page});
+		response = args.target.call(currentArgs);
 		return #D(response);
 	}
 	return logicController();
