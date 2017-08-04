@@ -29,6 +29,16 @@ function(context, args) { // target:#s.t3.corp, username:"username", pin:"4nums"
 		// }
 		// return listOfIndexes;
 	// }
+	//this searches through indexes for the page which has the repo script on it. it is then returned.
+	function read(finalIndex, currentArgs) {
+		let indexNav = ["i"]
+		let text = "";
+		for (var i = 0; i >= finalIndex.length; i++) {
+			currentArgs[indexNav] = finalIndex[i];
+			text += args.target.call(currentArgs);
+			return text;
+		}
+	}
 	function logicController() {
 		//stores all the args
 		let currentArgs = {username:args.username, pin:args.pin};
@@ -81,7 +91,10 @@ function(context, args) { // target:#s.t3.corp, username:"username", pin:"4nums"
 		response = args.target.call(currentArgs);
 		let indexes9 = search(/-\s(\w+)\s|\|\s(\w+)\s|\|\s(\w+)\s-/g, response)
 		let finalIndex = indexes1.concat(indexes2, indexes3, indexes4, indexes5, indexes6, indexes7, indexes8, indexes9)
-		return #D(finalIndex);
+		//this would be the regex to search for the user's file repo
+		//:\s`.(\w+`\.`.[a-zA-Z0-9()_]`+)/g
+		response = read(finalIndex, currentArgs)
+		return #D(finalIndex, response);
 	}
 	return logicController();
 }
